@@ -1,0 +1,10 @@
+{
+  "name": "tutti-location-extension",
+  "version": "0.1.0",
+  "description": "Improve tutti.ch website by adding distance lookups",
+  "scripts": {
+    "start:firefox": "web-ext run --source-dir ./dist/"
+  },
+  "author": "",
+  "license": "ISC"
+}

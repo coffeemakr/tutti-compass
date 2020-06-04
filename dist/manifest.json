@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Tutti",
+  "version": "1.0",
+"browser_specific_settings": {
+  "gecko": {
+    "id": "tutti@unstable.ch"
+  }
+},
+  "description": "Adds a red border to all webpages matching mozilla.org.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+  "options_ui": {
+    "page": "settings.html"
+  },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.tutti.ch/*"],
+      "js": ["plz.js", "lookup.js"],
+      "css": ["tutti.css"]
+    }
+  ]
+}
