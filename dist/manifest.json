@@ -1,19 +1,21 @@
 {
   "manifest_version": 2,
-  "name": "Tutti",
-  "version": "1.0",
-"browser_specific_settings": {
-  "gecko": {
-    "id": "tutti@unstable.ch"
-  }
-},
-  "description": "Adds a red border to all webpages matching mozilla.org.",
+  "name": "Tutti Compass",
+  "version": "0.1.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tutti@unstable.ch"
+    }
+  },
+  "description": "Adds the name and distance to the location of advertisments on tutti.ch.",
 
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "icon.svg",
+    "96": "icon.svg"
   },
   "options_ui": {
-    "page": "settings.html"
+    "page": "settings.html",
+    "browser_style": true
   },
   "permissions": ["storage"],
   "content_scripts": [

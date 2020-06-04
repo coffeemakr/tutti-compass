@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "Improve tutti.ch website by adding distance lookups",
   "scripts": {
-    "start:firefox": "web-ext run --source-dir ./dist/"
+    "start:firefox": "web-ext run --source-dir ./dist/",
+    "build:firefox": "web-ext build --source-dir ./dist/"
   },
   "author": "",
-  "license": "ISC"
+  "license": "UNLICENSED"
 }

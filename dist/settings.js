@@ -1,34 +1,60 @@
-//var currentLocation = storage.local.get("location");
-var locationInput = document.getElementById('location');
-//if(currentLocation) {
-//	location.value = currentLocation;
-//}
-
+const locationInput = document.getElementById('location');
+const errorElement = document.getElementById("error");
+const successElement = document.getElementById("success");
 const lat = document.getElementById("lat");
 const lon = document.getElementById("lon");
 
-function setLocationByPLZ(code) {
-	var loc = plz[code];
-	lat.value = loc.point[0];
-	lon.value = loc.point[1];
-	browser.storage.sync.set({loc: loc.point});
-	console.log("location saved");
+function error(message) {
+    successElement.style.display = 'none';
+    errorElement.style.display = 'block';
+    errorElement.innerText = message;
 }
 
-document.getElementById("location_by_plz").addEventListener("click", function() {
-	setLocationByPLZ(locationInput.value);
+function success(message) {
+    successElement.innerText = message;
+    successElement.style.display = 'block';
+    errorElement.style.display = 'none';
+}
+
+document.getElementById("updatePLZ").addEventListener("submit", function(event){
+    event.preventDefault();
+    updatePLZ();
 });
-new autoComplete({
-    selector: locationInput,
-    minChars: 2,
-    source: function(term, suggest){
-        term = term.toLowerCase();
-        var matches = [];
-        for (code in plz) {
-            var loc = plz[code];
-            if (loc.point && (~loc.name.toLowerCase().indexOf(term) || code.indexOf(term) == 0)) matches.push(code);
-	}
-        suggest(matches);
+
+
+function updateCoordinatesInput(point) {
+    lat.value = point[0];
+	lon.value = point[1];
+}
+
+browser.storage.sync.get("loc").then(function(result){
+    if(result.loc) {
+        updateCoordinatesInput(result.loc);
     }
 });
 
+function setLocationByPLZ(code) {
+    code = code.trim();
+    if (!(code in plz)) {
+        throw Error(`PLZ '${code}' not found`);
+    }
+    const loc = plz[code];
+    if (!loc.point) {
+        throw Error(`PLZ '${code}' has no coordinates`);
+    }
+    
+    updateCoordinatesInput(loc.point);
+	browser.storage.sync.set({loc: loc.point});
+
+}
+
+function updatePLZ() {
+    try {
+        setLocationByPLZ(locationInput.value); 
+    } catch(e) {
+        console.trace("Failed to set location: ", e);
+        error(e);
+        return;
+    }
+    success("Location saved.")
+}

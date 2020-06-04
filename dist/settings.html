@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="settings.css">
+    </head>
 <body>
-<label for="location">Location: </label> <input type="text" id="location" /> <button id="location_by_plz">Use</button>
+<p id="error"></p>
+<p id="success"></p>
+<p>Set your location by selecting the postal code of your location:</p>
+<form id="updatePLZ">
+<label for="location">PLZ: </label> <input type="text" id="location" /> <button id="location_by_plz">Use</button>
+</form>
+
+<p>Saved Location:</p>
 <input id="lat" disabled />
 <input id="lon" disabled />
 <script src="plz.js"></script>
-<script src="auto-complete.min.js"></script>
 <script src="settings.js"></script>
 </body>
 </html>
